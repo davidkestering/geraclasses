@@ -1,0 +1,23 @@
+<?php
+//á
+require_once("Conexao.class.php");
+#INCLUDE_CLASSES#
+require_once("FachadaSegurancaBD.class.php");
+
+/**
+* Classe responsável por todas as interações com o BD do sistema.
+*/
+class Fachada#BANCO#BDParent {
+
+	/**
+	* Método responsável por criar a Conexão.
+	* @param $sBanco Nome do Banco de Dados
+	* @return object $oConexao Conexão com o banco de dados especificado.
+	*/
+	function inicializaConexao($sBanco = ""){
+		$oConexao = new Conexao($sBanco);
+		return $oConexao;
+	}
+	#INTERIOR_FACHADA#
+}
+?>

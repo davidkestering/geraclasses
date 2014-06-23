@@ -1,0 +1,14 @@
+<?php
+//á
+require_once("#NOME_CLASSE#BDParent.class.php");
+
+class #NOME_CLASSE#BD extends #NOME_CLASSE#BDParent {
+
+	public $oConexao;
+
+	function __construct($sBanco){
+		$this->oConexao = new Conexao($sBanco);
+	}
+
+} 
+?>

@@ -1,0 +1,30 @@
+#BARRA {
+	display:none;
+}
+#MENU_LATERAL {
+	display:none;
+}
+#ICONES {
+	display:none;
+}
+#MIGALHA {
+	display:none;
+}
+#PAGINACAO {
+	display:none;
+}
+#CONTEUDO {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+#LOGO {
+	margin: 0px;
+	width:150px;
+}
+#RODAPE {
+	color:#000000;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	text-align: center;
+	background-color: #FFFFFF;
+}

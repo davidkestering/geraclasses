@@ -1,0 +1,99 @@
+<?php 
+//á
+require_once($_SERVER['DOCUMENT_ROOT']."/includes/constantes.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/classes/Fachada#BANCO_PRIMEIRA_MAIUSCULA#BD.class.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/classes/FachadaTransacaoBD.class.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/classes/Validacao.class.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/controle/includes/valida_usuario.php");
+
+$oFachada#BANCO_PRIMEIRA_MAIUSCULA# = new Fachada#BANCO_PRIMEIRA_MAIUSCULA#BD();
+$oFachadaTransacao = new FachadaTransacaoBD();
+$oValidacao = new Validacao();
+
+$bPermissao = $_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->verificaPermissao("#NOME_CLASSE#",$sOP,BANCO_#BANCO#);
+if(!$bPermissao) {
+	$_SESSION['sMsgPermissao'] = ACESSO_NEGADO;
+	header("Location: /controle/?bErro=1");
+	exit();
+}
+
+if($sOP != "Excluir") {
+	$o#NOME_CLASSE# = $oFachada#BANCO_PRIMEIRA_MAIUSCULA#->inicializa#NOME_CLASSE#(#LISTA_ATRIBUTOS_CONSTRUTOR#);
+	$_SESSION['o#NOME_CLASSE#'] = $o#NOME_CLASSE#;	
+	$sAtributosChave = "#LISTA_ATRIBUTOS_CHAVE#";
+	$_SESSION['sMsg#NOME_CLASSE#'] = $oValidacao->verificaObjetoVazio($o#NOME_CLASSE#,$sAtributosChave);	
+	if($_SESSION['sMsg#NOME_CLASSE#']) {
+		header("Location: insere_altera_#NOME_CLASSE_MINUSCULO#.php?sOP=$sOP&bErro=1");
+		exit();
+	}
+}
+
+// NOME DO CAMPO DO FORULARIO QUE DEVE SER GRAVADO NA TRANSACAO
+$sTituloTransacao = "fTitulo";
+$sAtributo = "getTitulo";
+$nIdTipoTransacao = $oFachadaTransacao->recuperaTipoTransacao("#NOME_CLASSE#",$sOP,BANCO_#BANCO#);
+
+
+switch($sOP) {
+	case "Cadastrar":
+		// TRANSACAO
+		$sObjeto = $_POST[$sTituloTransacao];
+		$oTransacao = $oFachadaTransacao->inicializaTransacao($nIdTransacao,$nIdTipoTransacao,$_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->oIdentificacao->getId(),$sObjeto,date('Y-m-d H:i:s'));
+	
+		if(!$oFachada#BANCO_PRIMEIRA_MAIUSCULA#->insere#NOME_CLASSE#($o#NOME_CLASSE#,$oTransacao,BANCO_#BANCO#)) {
+			$_SESSION['sMsg#NOME_CLASSE#'] = "Não foi possível inserir o #NOME_CLASSE_MINUSCULO#!";
+			$sHeader = "insere_altera_#NOME_CLASSE_MINUSCULO#.php?bErro=1";
+		} else {
+			$_SESSION['sMsg#NOME_CLASSE#'] = "#NOME_CLASSE# inserido com sucesso!";
+			$sHeader = "visualiza_#NOME_CLASSE_MINUSCULO#.php?bErro=0";
+			unset($_SESSION['o#NOME_CLASSE#']);
+		}//if ($oFachada#BANCO_PRIMEIRA_MAIUSCULA#->insere#NOME_CLASSE#($o#NOME_CLASSE#))
+	break;
+	case "Alterar":
+		$sHeader = "insere_altera_#NOME_CLASSE_MINUSCULO#.php?bErro=1";
+		
+		$o#NOME_CLASSE#Auxiliar = $oFachada#BANCO_PRIMEIRA_MAIUSCULA#->recupera#NOME_CLASSE#($fId,BANCO_#BANCO#);		
+		if(is_object($o#NOME_CLASSE#Auxiliar)){
+	
+			// TRANSACAO
+			$sObjeto = $o#NOME_CLASSE#Auxiliar->$sAtributo();
+			if($o#NOME_CLASSE#Auxiliar->$sAtributo() != $_POST[$sTituloTransacao])
+				$sObjeto = $o#NOME_CLASSE#Auxiliar->$sAtributo()." --> ".$_POST[$sTituloTransacao];
+			$oTransacao = $oFachadaTransacao->inicializaTransacao($nIdTransacao,$nIdTipoTransacao,$_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->oIdentificacao->getId(),$sObjeto,date('Y-m-d H:i:s'));
+		
+			if(!$oFachada#BANCO_PRIMEIRA_MAIUSCULA#->altera#NOME_CLASSE#($o#NOME_CLASSE#,$oTransacao,BANCO_#BANCO#)) {
+				$_SESSION['sMsg#NOME_CLASSE#'] = "Não foi possível alterar o #NOME_CLASSE_MINUSCULO#!";
+				$sHeader = "insere_altera_#NOME_CLASSE_MINUSCULO#.php?sOP=$sOP&bErro=1";
+			} else {
+				$_SESSION['sMsg#NOME_CLASSE#'] = "#NOME_CLASSE# alterado com sucesso!";
+				$sHeader = "visualiza_#NOME_CLASSE_MINUSCULO#.php?bErro=0";
+				unset($_SESSION['o#NOME_CLASSE#']);
+			}//if ($oFachada#BANCO_PRIMEIRA_MAIUSCULA#->insere#NOME_CLASSE#($o#NOME_CLASSE#))
+		} else
+			$_SESSION['sMsg#NOME_CLASSE#'] = "#NOME_CLASSE# não encontrado no sistema!";
+
+	break;
+	case "Excluir":		
+		$bResultado = true;
+		
+		foreach($_POST['f#NOME_CLASSE#'] as $nId#NOME_CLASSE#) {
+			$o#NOME_CLASSE# = $oFachada#BANCO_PRIMEIRA_MAIUSCULA#->recupera#NOME_CLASSE#($nId#NOME_CLASSE#,BANCO_#BANCO#);
+			// TRANSACAO
+			$sObjeto = $o#NOME_CLASSE#->$sAtributo();
+			$oTransacao = $oFachadaTransacao->inicializaTransacao($nIdTransacao,$nIdTipoTransacao,$_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->oIdentificacao->getId(),$sObjeto,date('Y-m-d H:i:s'));
+
+			$bResultado &= $oFachada#BANCO_PRIMEIRA_MAIUSCULA#->exclui#NOME_CLASSE#($nId#NOME_CLASSE#,$oTransacao,BANCO_#BANCO#);
+		}
+		
+		if($bResultado) {
+			$_SESSION['sMsg#NOME_CLASSE#'] = "#NOME_CLASSE# excluído com sucesso!";			
+			$sHeader = "visualiza_#NOME_CLASSE_MINUSCULO#.php?bErro=0";
+		} else {
+			$_SESSION['sMsg#NOME_CLASSE#'] = "Não foi possível excluir o #NOME_CLASSE#!";
+			$sHeader = "visualiza_#NOME_CLASSE_MINUSCULO#.php?bErro=1";
+		}//if($bResultado) {
+
+	break;
+}	
+header("Location: $sHeader");
+?>

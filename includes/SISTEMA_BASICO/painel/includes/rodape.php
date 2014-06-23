@@ -1,0 +1,1 @@
+<div id="RODAPE">Portal ORM &copy; Todos os Direitos Reservados</div>

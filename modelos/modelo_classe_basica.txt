@@ -1,0 +1,16 @@
+<?php
+//á
+require_once("#NOME_CLASSE#Parent.class.php");
+
+class #NOME_CLASSE# extends #NOME_CLASSE#Parent {
+	
+	/**
+	* Construtor de #NOME_CLASSE#
+	#COMENTARIO_ATRIBUTOS#
+	*/
+	function __construct(#LISTA_ATRIBUTOS_CONSTRUTOR#){
+		#INICIALIZACAO#
+	}
+	
+}
+?>

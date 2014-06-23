@@ -1,0 +1,126 @@
+<?php
+//á
+require_once($_SERVER['DOCUMENT_ROOT']."/includes/constantes.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/classes/Fachada#BANCO_PRIMEIRA_MAIUSCULA#BD.class.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/controle/includes/valida_usuario.php");
+
+$oFachada#BANCO_PRIMEIRA_MAIUSCULA# = new Fachada#BANCO_PRIMEIRA_MAIUSCULA#BD();
+
+$bPermissaoVisualizar = $_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->verificaPermissao("#NOME_CLASSE#","Visualizar",BANCO_#BANCO#);
+$bPermissaoCadastrar = $_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->verificaPermissao("#NOME_CLASSE#","Cadastrar",BANCO_#BANCO#);
+$bPermissaoAlterar = $_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->verificaPermissao("#NOME_CLASSE#","Alterar",BANCO_#BANCO#);
+$bPermissaoExcluir = $_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->verificaPermissao("#NOME_CLASSE#","Excluir",BANCO_#BANCO#);
+
+if(!$bPermissaoVisualizar) {
+	$_SESSION['sMsgPermissao'] = ACESSO_NEGADO;
+	header("Location: /controle/index.php");
+	exit();
+}
+
+$vo#NOME_CLASSE# = $oFachada#BANCO_PRIMEIRA_MAIUSCULA#->recuperaTodos#NOME_CLASSE#(BANCO_#BANCO#);
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML; 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" >
+<head>
+<title>Visualiza #NOME_CLASSE#</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<script language="javascript" src="/js/#JAVA_SCRIPT#.js"></script>
+<script language="javascript" src="/js/lista.js"></script>
+<script language="Javascript">
+function confirmaExclusao(sForm,sBotao) {
+	var oBotao = document.getElementById(sBotao);
+	
+	// VERIFICA SE ESTÁ O ÍCONE ATIVO
+	if(oBotao.src.match(/\d/) != 0) {
+		if(confirm('Confirma a exclusão da #NOME_CLASSE#?')) {
+			var oForm = document.getElementById(sForm);
+			oForm.submit();
+		}
+	}
+}
+</script>
+<table border="0">
+<?php 
+			$sMsg#NOME_CLASSE# = $_SESSION['sMsg#NOME_CLASSE#'];
+			if($sMsg#NOME_CLASSE#) {
+?>
+<tr>
+	<td colspan="#NUMERO_ATRIBUTOS#"><table width="100%"  border="0" cellpadding="0" cellspacing="0" class="AlertaTabela">
+    	<tr>
+        	<td width="1%"><img src="/controle/imagens/<?php echo ($_GET['bErro']) ? "alerta_erro" : "alerta_sucesso"?>.gif" alt="<?php echo ($_GET['bErro']) ? "Erro" : "Sucesso"?>"></td>
+            <td width="99%"><?php echo $sMsg#NOME_CLASSE#?></td>
+        </tr>
+    </table></td>
+</tr>
+<?php 
+		$_SESSION['sMsg#NOME_CLASSE#'] = "";
+	}//if ($sMsg#NOME_CLASSE#)
+	
+	if(count($vo#NOME_CLASSE#) == 0) {
+?>
+<tr>
+	<td colspan="#NUMERO_ATRIBUTOS#"><table width="100%"  border="0" cellpadding="0" cellspacing="0" class="AlertaTabela">
+    	<tr>
+        	<td width="1%"><img src="/controle/imagens/alerta_erro.gif" alt="Erro"></td>
+            <td width="99%">Não há #NOME_CLASSE# cadastrados no banco de dados!</td>
+        </tr>
+    </table></td>
+</tr>
+<?php	
+	}//if(count($vo#NOME_CLASSE#) == 0) {
+?>
+<form id="form#NOME_CLASSE#" action="processa_#NOME_CLASSE_MINUSCULO#.php" method="post" name="form">
+<input name="sOP" type="hidden" value="Excluir" />
+<tr>
+<td colspan="#NUMERO_ATRIBUTOS#">
+<table border="0" cellpadding="0" cellspacing="0" class="icones">
+<tr>
+<?php 
+	if($bPermissaoCadastrar) {
+?>
+<td><img src="/controle/imagens/icone_cadastrar_0.gif" alt="Cadastrar" width="24" height="24" border="0" id="botao#NOME_CLASSE#Cadastrar0" style="cursor:hand;" onclick="JavaScript: submeteForm('form#NOME_CLASSE#',this.id,'insere_altera_#NOME_CLASSE_MINUSCULO#.php')" onmouseover="JavaScript: alteraImagem('form#NOME_CLASSE#','botao#NOME_CLASSE#Cadastrar0',2)" onmouseout="JavaScript: alteraImagem('form#NOME_CLASSE#','botao#NOME_CLASSE#Cadastrar0',1)" /></td>
+<?php 
+	}//if($bPermissaoCadastrar)
+   	if($bPermissaoAlterar) {
+?>
+<td><img src="/controle/imagens/icone_editar_0.gif" alt="Editar" width="24" height="24" border="0" id="botao#NOME_CLASSE#Editar1" style="cursor:hand;" onclick="JavaScript: submeteForm('form#NOME_CLASSE#',this.id,'insere_altera_#NOME_CLASSE_MINUSCULO#.php')" onmouseover="JavaScript: alteraImagem('form#NOME_CLASSE#','botao#NOME_CLASSE#Editar1',2)" onmouseout="JavaScript: alteraImagem('form#NOME_CLASSE#','botao#NOME_CLASSE#Editar1',1)" /></td>
+<?php 
+	}//if($bPermissaoAlterar)
+   	if($bPermissaoExcluir) {
+?>
+<td><img src="/controle/imagens/icone_excluir_0.gif" alt="Excluir" width="24" height="24" border="0" id="botao#NOME_CLASSE#Excluir2" style="cursor:hand;" onclick="JavaScript: confirmaExclusao('form#NOME_CLASSE#','botao#NOME_CLASSE#Excluir2')" onmouseover="JavaScript: alteraImagem('form#NOME_CLASSE#','botao#NOME_CLASSE#Excluir2',2)" onmouseout="JavaScript: alteraImagem('form#NOME_CLASSE#','botao#NOME_CLASSE#Excluir2',1)" /></td>
+<?php }//if($bPermissaoExcluir)?>
+<td width="200"><span id="ajuda#NOME_CLASSE#"></span></td>
+<td><script language="JavaScript" type="text/javascript">atualizaImagens('form#NOME_CLASSE#','#NOME_CLASSE#');</script></td>
+</tr>
+</table>
+</td>
+</tr>
+<?php	
+	if(count($vo#NOME_CLASSE#) > 0) {
+?>
+<tr>
+	<th><img src="/controle/imagens/checkbox.gif" alt="" width="21" height="17" border="0" onclick="JavaScript: alteraTodos('form#NOME_CLASSE#'); atualizaImagens('form#NOME_CLASSE#','#NOME_CLASSE#')" /></th>	
+	#COLUNA_ATRIBUTOS#
+</tr>
+<?php
+		foreach($vo#NOME_CLASSE# as $o#NOME_CLASSE#) {
+#RECUPERA_ATRIBUTOS_AUXILIARES#
+?>
+<tr align="left" onmouseover="JavaScript:destacaLinha(this,'Regua')"; onmouseout="JavaScript:destacaLinha(this,'')">
+	<td><input class="check" type="checkbox" name="f#NOME_CLASSE#[]" value="<?php echo $o#NOME_CLASSE#->getId()?>" onclick="JavaScript: atualizaImagens('form#NOME_CLASSE#','#NOME_CLASSE#')" /></td>
+	#COLUNA_GET_ATRIBUTOS#
+</tr>
+<?php	
+		}//foreach($vo#NOME_CLASSE# as $o#NOME_CLASSE#)
+		unset($oFachada#BANCO_PRIMEIRA_MAIUSCULA#);
+		unset($o#NOME_CLASSE#);
+#OBJETOS_DESTRUIR#
+	} //if(count($vo#NOME_CLASSE#) > 0))
+?>
+</form>
+</table>
+</body>
+</html>

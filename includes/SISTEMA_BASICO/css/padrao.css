@@ -1,0 +1,247 @@
+/* ----- TAGS ----- */
+body, select {
+	font-family:Verdana, Arial, Helvetica, sans-serif, "Trebuchet MS";
+	font-size: 11px;
+	color: #333333;
+}
+body, form {
+	margin:0px;
+	padding:0px;
+}
+input {
+	margin:0px;
+	font-size: 11px;
+}
+h1, h2, h3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #333333;
+}
+h1 {
+	font-size: 26px;
+}
+h2 {
+	font-size: 20px;
+	display: block;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left:10px;
+	padding-right:10px;
+	background-color: #D8D8D8;
+	font-weight: normal;
+}
+h3 {
+	font-size: 18px;
+	margin: 0px;
+}
+hr {
+	height: 3px;
+	background-color: #FFFFFF;
+
+}
+.tabela_lista {
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px none #CCCCCC;
+	background-color: #FFFFFF;
+}
+.tabela_lista td, .tabela_lista th {
+	border-top: 1px none #CCCCCC;
+	border-right: 1px none #CCCCCC;
+	border-bottom: 1px none #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+}
+.tabela_lista td {
+	padding: 6px;
+}
+.tabela_lista th {
+	background-color: #EEEEEE;
+	border-bottom: 1px none #CCCCCC;
+}
+th {
+	font-family: Verdana, Arial, Helvetica, sans-serif, "Trebuchet MS";
+	font-size: 11px;
+	padding: 6px;
+	font-weight: bold;
+	/*text-align: left;*/
+	background-color:#F5F5F5;
+}
+/* ----- DIAGRAMACAO ----- */
+#BARRA {
+	background-color: #666666;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+	margin: 10px;
+	color: #FFFFFF;
+	top:50px;
+	clear:both;
+}
+#CLEAR {
+	clear: both;
+}
+#CONTEUDO {
+	margin-left: 20px;
+	margin-right:10px;
+	margin-bottom: 10px;
+	float:left;
+	width:80%;
+	/*border:#000 solid 1px;*/
+}
+#ICONES {
+	position:relative;
+}
+#LOGO, #MENU {
+
+}
+#LOGO {
+	margin: 10px;
+	width:150px;
+}
+#MENU_LATERAL {
+	width: 150px;
+/*	position:inherit;*/
+	top:113px;
+	left:10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	float:left;
+}
+#MIGALHA, #MIGALHA a {
+	font-family: Verdana, Arial, Helvetica, sans-serif, "Trebuchet MS";
+	font-size: 9px;
+	color: #000000;
+}
+#LINKS_ADICIONAIS{
+	width:auto;
+	background-color:#F9F9F9;
+	text-align:right;
+	margin: 0px 0px 10px;
+	padding: 4px 10px 4px 0px;
+}
+#PAGINACAO {
+	background-color: #EEEEEE;
+	padding: 6px;
+	text-align: right;
+	border-top: 1px none #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+}
+#PAGINACAO td {
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	margin: 0px;
+	padding: 0px 0px 0px 5px;
+}
+#RODAPE {
+	color:#FFFFFF;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	background-color: #666666;
+	clear:both;
+	margin-top:10px;
+
+}
+/* ----- ELEMENTOS ----- */
+.ajuda {
+	position: absolute;
+	margin-left: 5px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.menu_lateral_modulo {
+}
+.menu_lateral_modulo a{
+	width:150px;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left: 5px;
+	background-color: #999999;
+	color: #FFFFFF;
+	text-decoration: none;
+	display:block;
+}
+.menu_lateral_opcao {
+}
+.menu_lateral_opcao a{
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left: 10px;
+	width:145px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+	text-decoration: none;
+	color:#666666;
+	display:block;
+}
+.menu_lateral_opcao a:hover{
+	background-color:#EEEEEE;
+	color: #000000;
+}
+.col_destaca {
+	background-image: url(../painel/imagens/coluna_destaca.gif);
+}
+.col_ordem_cres,.col_ordem_dec {
+	background-repeat: no-repeat;
+	background-position: right;
+	background-color: #DADADA;
+}
+.col_ordem_cres {
+	background-image: url(../painel/imagens/coluna_ord_cres.gif);
+}
+.col_ordem_dec {
+	background-image: url(../painel/imagens/coluna_ord_dec.gif);
+}
+.realce {
+	font-size: 12px;
+	font-weight: bold;
+	color: #666666;
+}
+.zebra {
+	background-color: #EBEBEB;
+}
+#ICONES img{
+	padding: 6px;
+}
+#ICONES #ajuda, #ICONES #imprimir {
+	position:absolute;
+}
+#ICONES #imprimir {
+	right: 0px;
+}
+#ICONES #ajuda {
+	right: 42px;
+}
+#PAGINACAO .proximo, #PAGINACAO .anterior {
+	border-style: none;
+}
+#msg, #msg2, .msg_erro, .msg_sucesso, .msg_alerta {
+	display: none;
+	background-color: #F6F5F2;
+	padding: 5px 5px 5px 60px;
+	border: 1px solid #E1DDD4;
+	background-image: url(../painel/imagens/icones/alert_msg.gif);
+	background-repeat: no-repeat;
+	background-position: left center;
+	font-family: Verdana, Arial, Helvetica, sans-serif, "Trebuchet MS";
+	font-size: 9px;
+	height: 20px;
+}
+.msg_erro {
+	background-image: url(../painel/imagens/icones/error_msg.gif);
+}
+.msg_sucesso {
+	background-image: url(../painel/imagens/icones/sucess_msg.gif);
+}
+.msg_alerta {
+	background-image: url(../painel/imagens/icones/alert_msg.gif);
+}
+

@@ -1,0 +1,194 @@
+<?php
+//á
+require_once("#NOME_CLASSE#.class.php");
+/**
+* Classe responsável pelas interações com o banco de dados da entidade #NOME_CLASSE#
+*/
+class #NOME_CLASSE#BDParent {
+
+var $oConexao;
+
+	/**
+	* Método responsável por construir #NOME_CLASSE#
+	* @param $oConexao Conexão com o banco de dados. 
+	* @access public
+	*/
+	/*
+	function #NOME_CLASSE#BD($sBanco){
+		$this->oConexao = new Conexao($sBanco);
+	}
+	*/
+	
+	
+	/**
+	* Método responsável por atribuir valor ao atributo $oConexao
+	* @param object $oConexao Conexão com o banco de dados.
+	* @access public	
+	*/
+	function setConexao($oConexao){
+		$this->oConexao = $oConexao;
+	}
+	
+	
+	/**
+	* Método responsável recuperar o atributo $oConexao
+	* @access public	
+	* @return object $oConexao Conexão com o banco de dados.
+	*/	
+	function getConexao(){
+		return $this->oConexao;
+	}
+	
+	
+	/**
+	* Método responsável por recuperar #NOME_CLASSE#
+	#COMENTARIO_ATRIBUTOS_CHAVE#
+	* @access public
+	* @return object #NOME_CLASSE#
+	*/
+	function recupera(#LISTA_ATRIBUTOS_CHAVE#) {
+		$oConexao = $this->getConexao();
+		$sSql = "select *						 
+				 from   #NOME_TABELA#
+		  		 where  #COMPARACAO_CHAVE_ATRIBUTO#";
+		$oConexao->execute($sSql);
+		$oReg = $oConexao->fetchObject();
+		if ($oReg) {
+			$o#NOME_CLASSE# = new #NOME_CLASSE#(#LISTA_CAMPOS_REG#);
+			return $o#NOME_CLASSE#;
+		}
+		return false;
+	}
+
+
+	/**
+	* Método responsável por verificar presença de #NOME_CLASSE#
+	#COMENTARIO_ATRIBUTOS_CHAVE#
+	* @access public
+	* @return boolean Indicando presença ou ausência de #NOME_CLASSE#
+	*/
+	function presente(#LISTA_ATRIBUTOS_CHAVE#){
+
+		$oConexao = $this->getConexao();
+		$sSql = "select #LISTA_CAMPOS_CHAVE#
+				 from   #NOME_TABELA#
+				 where  #COMPARACAO_CHAVE_ATRIBUTO#
+				";
+		$oConexao->execute($sSql);
+		if ($oConexao->getConsulta())
+			return ($oConexao->recordCount() > 0);		
+		return 0;
+		
+	}
+
+
+	/**
+	* Método responsável por inserir #NOME_CLASSE#
+	* @param object $o#NOME_CLASSE# Objeto a ser inserido.
+	* @access public
+	* @return boolean Indicando sucesso ou não da operação;
+	*/
+	function insere($o#NOME_CLASSE#) {
+		$oConexao = $this->getConexao();
+		$sSql = "insert into #NOME_TABELA# (#LISTA_CAMPOS_NAO_CHAVE#) 
+				 values (#VALORES_NAO_CHAVE#)";		
+		$oConexao->execute($sSql);		
+		$nId = $oConexao->getLastId();
+		if ($nId)
+			return $nId;
+		return $oConexao->getConsulta();
+	}
+
+
+	/**
+	* Método responsável por alterar #NOME_CLASSE#
+	* @param object $o#NOME_CLASSE# Objeto a ser alterado.
+	* @access public
+	* @return boolean Indicando presença ou ausência de #NOME_CLASSE#
+	*/
+	function altera($o#NOME_CLASSE#) {
+		$oConexao = $this->getConexao();
+		$sSql = "update #NOME_TABELA# 
+				 set    #ATRIBUICAO_NAO_CHAVE#
+				 where  #COMPARACAO_CHAVE_ATRIBUTO_ESP# ";	
+		$oConexao->execute($sSql);
+		return $oConexao->getConsulta();
+	}
+
+
+	/**
+	* Método responsável por recuperar todos os representantes da entidade #NOME_CLASSE#
+	* @access public
+	* @return array $voObjeto Vetor de objetos com os representantes de #NOME_CLASSE#
+	*/
+	function recuperaTodos($vWhere,$sOrder) {
+		$oConexao = $this->getConexao();
+		
+		
+		if (count($vWhere) > 0) {
+			$sSql2 = "";
+			foreach ($vWhere as $sWhere) {
+				if($sWhere != "")
+					$sSql2 .= $sWhere . " AND ";
+			}
+			if($sSql2 != ""){
+				$sSql = "SELECT * 
+				 FROM #NOME_TABELA#
+				 WHERE
+				 ";
+				 $sSql = substr($sSql.$sSql2,0,-5);
+			}else{
+				$sSql = "SELECT * 
+				 FROM #NOME_TABELA# ";
+			}
+		}
+		else {
+			$sSql = "SELECT * 
+				 FROM #NOME_TABELA# ";
+		}
+
+		if ($sOrder) {
+			$sSql .= " ORDER BY ".$sOrder;
+		}
+
+		$oConexao->execute($sSql);
+		$voObjeto = array();
+		while ($oReg = $oConexao->fetchObject()) {
+			$o#NOME_CLASSE# = new #NOME_CLASSE#(#LISTA_CAMPOS_REG#);
+			$voObjeto[] = $o#NOME_CLASSE#;
+			unset($o#NOME_CLASSE#);
+		}
+		return $voObjeto;
+	}
+
+
+	/**
+	* Método responsável por excluir #NOME_CLASSE#
+	* @access public
+	* @return boolean Indicando sucesso ou não da operação
+	*/
+	function exclui(#LISTA_ATRIBUTOS_CHAVE#) {
+		$oConexao = $this->getConexao();
+		$sSql = "delete from #NOME_TABELA#
+				 where  #COMPARACAO_CHAVE_ATRIBUTO# ";					
+		$oConexao->execute($sSql);
+		return $oConexao->getConsulta();
+	}
+
+
+	/**
+	* Método responsável por desativar um registro da #NOME_CLASSE#
+	* @access public
+	* @return boolean Indicando sucesso ou não da operação
+	*/
+	function desativa(#LISTA_ATRIBUTOS_CHAVE#) {
+		$oConexao = $this->getConexao();
+		$sSql = "update #NOME_TABELA#
+		 		 set ativo = '0'
+				 where  #COMPARACAO_CHAVE_ATRIBUTO# ";					
+		$oConexao->execute($sSql);
+		return $oConexao->getConsulta();
+	}
+
+}
+?>

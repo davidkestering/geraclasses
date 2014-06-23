@@ -1,0 +1,66 @@
+<?php
+//á
+require_once($_SERVER['DOCUMENT_ROOT']."/includes/constantes.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/classes/Fachada#BANCO_PRIMEIRA_MAIUSCULA#BD.class.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/controle/includes/valida_usuario.php");
+
+$oFachada#BANCO_PRIMEIRA_MAIUSCULA# = new Fachada#BANCO_PRIMEIRA_MAIUSCULA#BD();
+
+$sOP = (array_key_exists('sOP',$_GET)) ? $_GET['sOP'] : "Cadastrar";
+$nId#NOME_CLASSE# = ($_POST['f#NOME_CLASSE#'][0]) ? $_POST['f#NOME_CLASSE#'][0] : $_GET['nId#NOME_CLASSE#'];
+
+if($_SESSION['o#NOME_CLASSE#'])
+	$o#NOME_CLASSE# = $_SESSION['o#NOME_CLASSE#'];
+elseif($nId#NOME_CLASSE#) {
+	$o#NOME_CLASSE# = $oFachada#BANCO_PRIMEIRA_MAIUSCULA#->recupera#NOME_CLASSE#($nId#NOME_CLASSE#,BANCO_#BANCO#);
+	$sOP = "Alterar";
+}
+
+$bPermissao = $_SESSION['oLoginAdm#BANCO_PRIMEIRA_MAIUSCULA#']->verificaPermissao("#NOME_CLASSE#",$sOP,BANCO_#BANCO#);
+if(!$bPermissao) {
+	$_SESSION['sMsgPermissao'] = ACESSO_NEGADO;
+	header("Location: /controle/");
+	exit();
+}
+?>
+<script language="javascript" src="/js/#JAVA_SCRIPT#.js"></script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML; 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" >
+<head>
+<title>Cadastro de #NOME_CLASSE#</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span id="msg"></span>
+<form name="cadastra#NOME_CLASSE#" method="post" action="processa_#NOME_CLASSE_MINUSCULO#.php" onSubmit="return validaForm(this,'#000000','#FF0000')">
+#ATRIBUTOS_FORM_CHAVE#
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<?php 
+		$sMsg#NOME_CLASSE# = $_SESSION['sMsg#NOME_CLASSE#'];
+		if($sMsg#NOME_CLASSE#) {
+	?>
+   	<tr>
+      <td colspan="2"><table width="100%"  border="0" cellpadding="0" cellspacing="0" class="AlertaTabela">
+          <tr>
+            <td width="1%"><img src="/controle/imagens/<?php echo ($_GET['bErro']) ? "alerta_erro" : "alerta_sucesso"?>.gif" alt="<?php echo ($_GET['bErro']) ? "Erro" : "Sucesso"?>"></td>
+            <td width="99%"><?php echo $sMsg#NOME_CLASSE#?></td>
+          </tr>
+      </table></td>
+    </tr>
+	<tr><td>&nbsp;</td></tr>
+	<?php
+		$_SESSION['sMsg#NOME_CLASSE#'] = "";
+	}//if($sMsg#NOME_CLASSE#)
+	?>
+  #LINHAS_DE_ATRIBUTOS#	
+  <tr>
+	<td><input type="hidden" name="sOP" value="<?php echo $sOP?>"></td>
+	<td><input name="fCadastrar" type="submit" id="fCadastrar" value="<?php echo $sOP?>" /></td>
+  </tr>
+</table>
+</form>
+<?php
+unset($_SESSION['o#NOME_CLASSE#']);
+?>
+</body>
+</html>

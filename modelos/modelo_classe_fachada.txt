@@ -1,0 +1,11 @@
+<?php
+//á
+include_once("Fachada#BANCO#BDParent.class.php");
+
+class Fachada#BANCO#BD extends Fachada#BANCO#BDParent {
+
+	function __construct(){
+	}
+
+}
+?>

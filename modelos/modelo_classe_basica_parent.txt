@@ -1,0 +1,20 @@
+<?php
+//á
+class #NOME_CLASSE#Parent {
+
+#LISTA_ATRIBUTOS#
+	
+	/**
+	* Construtor de #NOME_CLASSE#
+	#COMENTARIO_ATRIBUTOS#
+	*/
+	
+	/*
+	function #NOME_CLASSE#(#LISTA_ATRIBUTOS_CONSTRUTOR#){
+		#INICIALIZACAO#
+	}
+	*/
+	
+	#GET_SET#
+}
+?>

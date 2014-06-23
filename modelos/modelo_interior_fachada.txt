@@ -1,0 +1,138 @@
+
+	/***á
+	* Método responsável por instanciar um objeto de #NOME_CLASSE#
+	* @access public
+	* @return object $o#NOME_CLASSE# #NOME_CLASSE#
+	*/	
+	function inicializa#NOME_CLASSE#(#LISTA_ATRIBUTOS_CONSTRUTOR#) {
+		$o#NOME_CLASSE# = new #NOME_CLASSE#(#LISTA_ATRIBUTOS_CONSTRUTOR#);
+		return $o#NOME_CLASSE#;
+	}
+
+
+	/**
+	* Método responsável por instanciar um objeto de #NOME_CLASSE#BD
+	* @access public
+	* @return object $o#NOME_CLASSE#BD #NOME_CLASSE#BD
+	*/	
+	function inicializa#NOME_CLASSE#BD($sBanco) {
+		$o#NOME_CLASSE#BD = new #NOME_CLASSE#BD($sBanco);
+		return $o#NOME_CLASSE#BD;
+	}
+
+
+	/** 
+	* Método responsável por recuperar #NOME_CLASSE#
+	#COMENTARIO_ATRIBUTOS_CHAVE#
+	* @access public
+	* @return object $o#NOME_CLASSE# #NOME_CLASSE#
+	*/
+	function recupera#NOME_CLASSE#(#LISTA_ATRIBUTOS_CHAVE#,$sBanco) {
+		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
+ 		$o#NOME_CLASSE# = $o#NOME_CLASSE#BD->recupera(#LISTA_ATRIBUTOS_CHAVE#);
+		return $o#NOME_CLASSE#;
+	}
+
+
+	/** 
+	* Método responsável por recuperar todos os representantes da entidade #NOME_CLASSE#
+	* @access public
+	* @return array $aObjeto Vetor de objetos com os representantes de #NOME_CLASSE#
+	*/
+	function recuperaTodos#NOME_CLASSE#($sBanco,$vWhere=null,$vOrder=null) {
+		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
+		$voObjeto = array();
+		$voObjeto = $o#NOME_CLASSE#BD->recuperaTodos($vWhere,$vOrder);
+		return $voObjeto;
+	}
+
+
+	/** 
+	* Método responsável por verificar presença de #NOME_CLASSE#
+	#COMENTARIO_ATRIBUTOS_CHAVE#
+	* @access public
+	* @return boolean $bResultado Indicando presença ou ausência de #NOME_CLASSE#
+	*/
+	function presente#NOME_CLASSE#(#LISTA_ATRIBUTOS_CHAVE#,$sBanco){
+		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
+ 		$bResultado = $o#NOME_CLASSE#BD->presente(#LISTA_ATRIBUTOS_CHAVE#);
+		return $bResultado;
+	}
+
+
+	/** 
+	* Método responsável por inserir #NOME_CLASSE#
+	* @param object $o#NOME_CLASSE# Objeto a ser inserido.
+	* @access public
+	* @return boolean $bResultado Indicando sucesso ou não da operação;
+	*/
+	function insere#NOME_CLASSE#($o#NOME_CLASSE#,$oTransacao,$sBanco) {
+		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
+ 		$nId = $o#NOME_CLASSE#BD->insere($o#NOME_CLASSE#);
+		// INSERE TRANSAÇÃO 
+		if($nId && is_object($oTransacao)) {
+			$oFachadaSeguranca = new FachadaSegurancaBD();
+			if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
+				return false;
+		}
+		
+		return $nId;
+	}
+
+
+	/** 
+	* Método responsável por alterar #NOME_CLASSE#
+	* @param object $o#NOME_CLASSE# Objeto a ser alterado.
+	* @access public
+	* @return boolean $bResultado Indicando presença ou ausência de #NOME_CLASSE#
+	*/
+	function altera#NOME_CLASSE#($o#NOME_CLASSE#,$oTransacao,$sBanco) {
+		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
+ 		$bResultado = $o#NOME_CLASSE#BD->altera($o#NOME_CLASSE#);
+		// INSERE TRANSAÇÃO 
+		if($bResultado && is_object($oTransacao)) {
+			$oFachadaSeguranca = new FachadaSegurancaBD();
+			if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
+				return false;
+		}
+		
+		return $bResultado;
+	}
+
+
+	/** 
+	* Método responsável por excluir #NOME_CLASSE#
+	* @access public
+	* @return boolean $bResultado Indicando sucesso ou não da operação
+	*/
+	function exclui#NOME_CLASSE#(#LISTA_ATRIBUTOS_CHAVE#,$oTransacao,$sBanco) {
+		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
+ 		$bResultado = $o#NOME_CLASSE#BD->exclui(#LISTA_ATRIBUTOS_CHAVE#);
+		// INSERE TRANSAÇÃO 
+		if($bResultado && is_object($oTransacao)) {
+			$oFachadaSeguranca = new FachadaSegurancaBD();
+			if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
+				return false;
+		}
+		
+		return $bResultado;
+	}
+
+
+	/** 
+	* Método responsável por desativar um resgistro #NOME_CLASSE#
+	* @access public
+	* @return boolean $bResultado Indicando sucesso ou não da operação
+	*/
+	function desativa#NOME_CLASSE#(#LISTA_ATRIBUTOS_CHAVE#,$oTransacao,$sBanco) {
+		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
+ 		$bResultado = $o#NOME_CLASSE#BD->desativa(#LISTA_ATRIBUTOS_CHAVE#);
+		// INSERE TRANSAÇÃO 
+		if($bResultado && is_object($oTransacao)) {
+			$oFachadaSeguranca = new FachadaSegurancaBD();
+			if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
+				return false;
+		}
+		
+		return $bResultado;
+	}

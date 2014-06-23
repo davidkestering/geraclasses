@@ -1,0 +1,34 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^.htaccess$ /
+
+RewriteRule ^cursos-profissionalizantes-iniciados-pela-letra-([a-z]+)\.html$ busca.php?q=$1&y=ok [L]
+RewriteRule ^busca-por-([a-zA-Z0-9-]+)\.html$ busca.php?q=$1&busca_enviar_curso=ok [L]
+
+RewriteRule ^([0-9]+)-cursos-na-area-de-administracao\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-agricultura\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-artes\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-assistencia-social\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-direito\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-educacao\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-idiomas\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-industria\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-informatica\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-meio-ambiente\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-psicologia\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-religiao\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-saude\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-cursos-na-area-de-turismo\.html$ cursos.php?cod=$1 [L]
+RewriteRule ^([0-9]+)-outros-cursos\.html$ cursos.php?cod=$1 [L]
+
+RewriteRule ^([0-9]+)-detalhes-do-curso-([a-zA-Z0-9-]+)\.html$ curso_detalhe.php?a=$1 [L]
+
+RewriteRule ^(!.(\.gif|\.jpg|\.png|\.css|\.js|\.txt|\.htm|\.html)|.+[^/])$ $1 [L]
+
+</IfModule>

@@ -1,0 +1,231 @@
+-- phpMyAdmin SQL Dump
+-- version 3.3.9
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tempo de Geração: Jan 03, 2012 as 04:39 PM
+-- Versão do Servidor: 5.5.8
+-- Versão do PHP: 5.3.5
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Banco de Dados: `helloidioms`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `seg_categoria_tipo_transacao`
+--
+
+DROP TABLE IF EXISTS `seg_categoria_tipo_transacao`;
+CREATE TABLE `seg_categoria_tipo_transacao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(255) DEFAULT NULL,
+  `dt_categoria_tipo_transacao` datetime DEFAULT '0000-00-00 00:00:00',
+  `publicado` tinyint(1) DEFAULT '0',
+  `ativo` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `descricao` (`descricao`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `seg_categoria_tipo_transacao`
+--
+
+INSERT INTO `seg_categoria_tipo_transacao` (`id`, `descricao`, `dt_categoria_tipo_transacao`, `publicado`, `ativo`) VALUES
+(1, 'Permissao', '2011-12-22 10:00:00', 1, 1),
+(2, 'Acesso', '2011-12-22 10:00:00', 1, 1),
+(3, 'Grupos', '2011-12-22 10:00:00', 1, 1),
+(4, 'Usuario', '2011-12-22 10:00:00', 1, 1),
+(5, 'Transacao', '2012-01-03 16:29:35', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `seg_grupo_usuario`
+--
+
+DROP TABLE IF EXISTS `seg_grupo_usuario`;
+CREATE TABLE `seg_grupo_usuario` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `nm_grupo_usuario` varchar(255) DEFAULT NULL,
+  `dt_grupo_usuario` datetime DEFAULT '0000-00-00 00:00:00',
+  `publicado` tinyint(1) DEFAULT '0',
+  `ativo` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nm_grupo_usuario` (`nm_grupo_usuario`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `seg_grupo_usuario`
+--
+
+INSERT INTO `seg_grupo_usuario` (`id`, `nm_grupo_usuario`, `dt_grupo_usuario`, `publicado`, `ativo`) VALUES
+(1, 'Administrador', '2011-12-22 10:05:35', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `seg_permissao`
+--
+
+DROP TABLE IF EXISTS `seg_permissao`;
+CREATE TABLE `seg_permissao` (
+  `id_tipo_transacao` int(11) NOT NULL DEFAULT '0',
+  `id_grupo_usuario` int(11) NOT NULL DEFAULT '0',
+  `dt_permissao` datetime DEFAULT '0000-00-00 00:00:00',
+  `publicado` tinyint(1) DEFAULT '0',
+  `ativo` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id_tipo_transacao`,`id_grupo_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `seg_permissao`
+--
+
+INSERT INTO `seg_permissao` (`id_tipo_transacao`, `id_grupo_usuario`, `dt_permissao`, `publicado`, `ativo`) VALUES
+(1, 1, '2011-12-22 10:00:00', 1, 1),
+(2, 1, '2011-12-22 10:00:00', 1, 1),
+(3, 1, '2011-12-22 10:00:00', 1, 1),
+(4, 1, '2011-12-22 10:00:00', 1, 1),
+(5, 1, '2011-12-22 10:00:00', 1, 1),
+(6, 1, '2011-12-22 10:00:00', 1, 1),
+(7, 1, '2011-12-22 10:00:00', 1, 1),
+(8, 1, '2011-12-22 10:00:00', 1, 1),
+(9, 1, '2011-12-22 10:00:00', 1, 1),
+(10, 1, '2011-12-22 10:00:00', 1, 1),
+(11, 1, '2011-12-22 10:00:00', 1, 1),
+(12, 1, '2011-12-22 10:00:00', 1, 1),
+(13, 1, '2011-12-22 10:00:00', 1, 1),
+(14, 1, '2011-12-22 10:00:00', 1, 1),
+(15, 1, '2011-12-22 10:00:00', 1, 1),
+(16, 1, '2011-12-22 10:00:00', 1, 1),
+(17, 1, '2011-12-22 10:00:00', 1, 1),
+(18, 1, '2011-12-22 10:00:00', 1, 1),
+(19, 1, '2011-12-22 10:00:00', 1, 1),
+(20, 1, '2011-12-22 10:00:00', 1, 1),
+(21, 1, '2011-12-22 10:00:00', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `seg_tipo_transacao`
+--
+
+DROP TABLE IF EXISTS `seg_tipo_transacao`;
+CREATE TABLE `seg_tipo_transacao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_categoria_tipo_transacao` int(11) NOT NULL DEFAULT '0',
+  `transacao` varchar(255) DEFAULT NULL,
+  `dt_tipo_transacao` datetime DEFAULT '0000-00-00 00:00:00',
+  `publicado` tinyint(1) DEFAULT '0',
+  `ativo` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `categoria_tipo_transacao` (`id_categoria_tipo_transacao`,`transacao`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `seg_tipo_transacao`
+--
+
+INSERT INTO `seg_tipo_transacao` (`id`, `id_categoria_tipo_transacao`, `transacao`, `dt_tipo_transacao`, `publicado`, `ativo`) VALUES
+(1, 1, 'Alterar', '2011-12-22 10:00:00', 1, 1),
+(2, 2, 'Login', '2011-12-22 10:00:00', 1, 1),
+(3, 2, 'Logout', '2011-12-22 10:00:00', 1, 1),
+(4, 3, 'Visualizar', '2011-12-22 10:00:00', 1, 1),
+(5, 3, 'Alterar', '2011-12-22 10:00:00', 1, 1),
+(6, 3, 'Cadastrar', '2011-12-22 10:00:00', 1, 1),
+(7, 3, 'Excluir', '2011-12-22 10:00:00', 1, 1),
+(8, 3, 'Desativar', '2011-12-22 10:00:00', 1, 1),
+(9, 4, 'Visualizar', '2011-12-22 10:00:00', 1, 1),
+(10, 4, 'Alterar', '2011-12-22 10:00:00', 1, 1),
+(11, 4, 'AlterarSenha', '2011-12-22 10:00:00', 1, 1),
+(12, 4, 'Cadastrar', '2011-12-22 10:00:00', 1, 1),
+(13, 4, 'Excluir', '2011-12-22 10:00:00', 1, 1),
+(14, 4, 'Desativar', '2011-12-22 10:00:00', 1, 1),
+(15, 5, 'Visualizar', '2011-12-22 10:00:00', 1, 1),
+(16, 5, 'Alterar', '2011-12-22 10:00:00', 1, 1),
+(17, 5, 'Cadastrar', '2011-12-22 10:00:00', 1, 1),
+(18, 5, 'Excluir', '2011-12-22 10:00:00', 1, 1),
+(19, 5, 'Desativar', '2011-12-22 10:00:00', 1, 1),
+(20, 5, 'VerLog', '2011-12-22 10:00:00', 1, 1),
+(21, 5, 'VerErro', '2011-12-22 10:00:00', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `seg_transacao`
+--
+
+DROP TABLE IF EXISTS `seg_transacao`;
+CREATE TABLE `seg_transacao` (
+  `id` bigint(50) NOT NULL AUTO_INCREMENT,
+  `id_tipo_transacao` int(11) DEFAULT '0',
+  `id_usuario` int(11) DEFAULT '0',
+  `objeto` longtext,
+  `ip` varchar(255) DEFAULT NULL,
+  `dt_transacao` datetime DEFAULT '0000-00-00 00:00:00',
+  `publicado` tinyint(1) DEFAULT '1',
+  `ativo` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `seg_transacao`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `seg_transacao_acesso`
+--
+
+DROP TABLE IF EXISTS `seg_transacao_acesso`;
+CREATE TABLE `seg_transacao_acesso` (
+  `id` bigint(50) NOT NULL AUTO_INCREMENT,
+  `id_tipo_transacao` int(11) DEFAULT '0',
+  `id_usuario` int(11) DEFAULT '0',
+  `objeto` longtext,
+  `ip` varchar(255) DEFAULT NULL,
+  `dt_transacao` datetime DEFAULT '0000-00-00 00:00:00',
+  `publicado` tinyint(1) DEFAULT '1',
+  `ativo` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `seg_transacao_acesso`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `seg_usuario`
+--
+
+DROP TABLE IF EXISTS `seg_usuario`;
+CREATE TABLE `seg_usuario` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_grupo_usuario` int(11) unsigned DEFAULT '0',
+  `nm_usuario` varchar(255) DEFAULT NULL,
+  `login` varchar(255) DEFAULT NULL,
+  `senha` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `logado` tinyint(1) DEFAULT '0',
+  `dt_usuario` datetime DEFAULT '0000-00-00 00:00:00',
+  `publicado` tinyint(1) DEFAULT '0',
+  `ativo` tinyint(1) unsigned DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login` (`login`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `seg_usuario`
+--
+
+INSERT INTO `seg_usuario` (`id`, `id_grupo_usuario`, `nm_usuario`, `login`, `senha`, `email`, `logado`, `dt_usuario`, `publicado`, `ativo`) VALUES
+(1, 1, 'Dávìd Këstêrîng', 'david', 'tudobem', 'davidkestering@gmail.com', 0, '2011-12-22 10:20:34', 1, 1);
