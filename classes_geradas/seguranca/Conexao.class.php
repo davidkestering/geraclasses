@@ -37,6 +37,9 @@ class Conexao {
 			case 'LOCAL':
 				$this->conectaBD("localhost","root","root","helloidioms");
 			break;
+            case 'LOCALMAC':
+                $this->conectaBD("localhost","root","root","helloidioms");
+            break;
 			case 'BANCO':
 				$this->conectaBD("localhost","root","root","helloidioms");
 			break;
