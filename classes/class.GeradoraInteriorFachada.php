@@ -2,21 +2,29 @@
 //á
 class GeradoraInteriorFachada{
 
-	var $oConstrutor;
-    var	$sListaAtributosChave;
-	var $sComentarioAtributosChave;
-	var $sInteriorFachada;
-	var $oTabela;
+	public $oConstrutor;
+    public $sListaAtributosChave;
+	public $sComentarioAtributosChave;
+	public $sInteriorFachada;
+	public $oTabela;
+	public $sAtributosConstrutor;
+	public $sListaAtributos;
+	public $sListaCamposChave;
+	public $sListaCamposNaoChave;
+	public $sListaValoresNaoChave;
+	public $sComparacaoChaveAtributo;
+	public $sListaCamposReg;
 
 
-
-	function GeradoraInteriorFachada($oConstrutor){
+	function __construct($oConstrutor){
 		$this->oConstrutor = $oConstrutor;
 	}
 	
 	function geraAtributos(){
 		$vAtributos = $this->oConstrutor->vAtributos;
 		if (count($vAtributos) > 0){
+			$this->sAtributosConstrutor = "";
+			$this->sListaAtributos = "";
 			foreach($vAtributos as $sAtributo){
 				$sNomeAtributo = substr($sAtributo,1);
 				$this->sAtributosConstrutor .= "\$".$sAtributo . ",";
@@ -60,12 +68,12 @@ class GeradoraInteriorFachada{
 			$sArquivo = "";
 			$vModelo = file(dirname(__FILE__)."/../modelos/modelo_interior_fachada.txt");
 			$sArquivo = join("",$vModelo);
-			$sArquivo = preg_replace("/#NOME_CLASSE#/",$this->oConstrutor->sClasse,$sArquivo);
-			$sArquivo = preg_replace("/#NOME_CLASSE_SIMPLES#/",$this->oConstrutor->sClasseSimples,$sArquivo);
-			$sArquivo = preg_replace("/#NOME_TABELA#/",$this->oConstrutor->sTabela,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_ATRIBUTOS_CHAVE#/",$this->sListaAtributosChave,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",$this->sAtributosConstrutor,$sArquivo);
-			$sArquivo = preg_replace("/#COMENTARIO_ATRIBUTOS_CHAVE#/",$this->sComentarioAtributosChave,$sArquivo);
+			$sArquivo = preg_replace_callback("/#NOME_CLASSE#/",function($matches) {return $this->oConstrutor->sClasse;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#NOME_CLASSE_SIMPLES#/",function($matches) {return $this->oConstrutor->sClasseSimples;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#NOME_TABELA#/",function($matches) {return $this->oConstrutor->sTabela;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_ATRIBUTOS_CHAVE#/",function($matches) {return $this->sListaAtributosChave;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",function($matches) {return $this->sAtributosConstrutor;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#COMENTARIO_ATRIBUTOS_CHAVE#/",function($matches) {return $this->sComentarioAtributosChave;},$sArquivo);
 			$this->sInteriorFachada = $sArquivo;
 	}
 }

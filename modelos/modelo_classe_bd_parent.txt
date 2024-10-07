@@ -125,7 +125,7 @@ var $oConexao;
 		$oConexao = $this->getConexao();
 		
 		
-		if (count($vWhere) > 0) {
+		if (is_array($vWhere) && count($vWhere) > 0) {
 			$sSql2 = "";
 			foreach ($vWhere as $sWhere) {
 				if($sWhere != "")

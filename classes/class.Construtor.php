@@ -9,7 +9,7 @@ class Construtor{
 	var $vAtributos = array();
 	var $oTabela;
 
-	function Construtor($sNomeTabela){
+	function __construct($sNomeTabela){
 		$this->sTabela = $sNomeTabela;
 		$this->geraNomeClasse();
 		$this->oTabela = new Tabela($this->sTabela);

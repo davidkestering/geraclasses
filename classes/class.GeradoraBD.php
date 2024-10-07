@@ -21,7 +21,7 @@ class GeradoraBD{
 
 
 
-	function GeradoraBD($oConstrutor){
+	function __construct($oConstrutor){
 		$this->oConstrutor = $oConstrutor;
 		//$this->sNomeArquivo = "class.".$this->oConstrutor->sClasse."BD.php";
 		//$this->sNomeArquivoParent = "class.".$this->oConstrutor->sClasse."BDParent.php";
@@ -59,15 +59,15 @@ class GeradoraBD{
 					
 					array_push($vCamposNaoChave,$oCampo->Field);
 					if(substr($vAtributos[$nIndice],0,1) == "s") {
-						array_push($vAtribuicaoNaoChave,$oCampo->Field . " = " . "'\".utf8_decode(\$oConexao->escapeString(\$o".$this->oConstrutor->sClasse."->get".substr($vAtributos[$nIndice],1)."())).\"'");
-						array_push($vValoresNaoChave,"'\".utf8_decode(\$oConexao->escapeString(\$o".$this->oConstrutor->sClasse."->get".substr($vAtributos[$nIndice],1)."())).\"'");
+						array_push($vAtribuicaoNaoChave,$oCampo->Field . " = " . "'\".\$oConexao->escapeString(\$o".$this->oConstrutor->sClasse."->get".substr($vAtributos[$nIndice],1)."()).\"'");
+						array_push($vValoresNaoChave,"'\".\$oConexao->escapeString(\$o".$this->oConstrutor->sClasse."->get".substr($vAtributos[$nIndice],1)."()).\"'");
 					} else {
 						array_push($vAtribuicaoNaoChave,$oCampo->Field . " = " . "'\".\$o".$this->oConstrutor->sClasse."->get".substr($vAtributos[$nIndice],1)."().\"'");
 						array_push($vValoresNaoChave,"'\".\$o".$this->oConstrutor->sClasse."->get".substr($vAtributos[$nIndice],1)."().\"'");
 					}
 				}
 				if(substr($vAtributos[$nIndice],0,1) == "s")
-					array_push($vCamposReg,"utf8_encode(\$oConexao->unescapeString(\$oReg->".$oCampo->Field."))");
+					array_push($vCamposReg,"\$oConexao->unescapeString(\$oReg->".$oCampo->Field.")");
 				else
 					array_push($vCamposReg,"\$oReg->".$oCampo->Field);
 			}
@@ -88,20 +88,20 @@ class GeradoraBD{
 			$sArquivo = "";
 			$vModelo = file(dirname(__FILE__)."/../modelos/modelo_classe_bd.txt");
 			$sArquivo = join("",$vModelo);
-			$sArquivo = preg_replace("/#NOME_CLASSE#/",$this->oConstrutor->sClasse,$sArquivo);
-			$sArquivo = preg_replace("/#NOME_CLASSE_SIMPLES#/",$this->oConstrutor->sClasseSimples,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_ATRIBUTOS#/",$this->sListaAtributos,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",$this->sAtributosConstrutor,$sArquivo);
-			$sArquivo = preg_replace("/#NOME_TABELA#/",strtolower($this->oConstrutor->sTabela),$sArquivo);
-			$sArquivo = preg_replace("/#COMPARACAO_CHAVE_ATRIBUTO#/",$this->sComparacaoChaveAtributo,$sArquivo);
-			$sArquivo = preg_replace("/#COMPARACAO_CHAVE_ATRIBUTO_ESP#/",$this->sComparacaoChaveAtributoEsp,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_CAMPOS_CHAVE#/",$this->sListaCamposChave,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_CAMPOS_NAO_CHAVE#/",$this->sListaCamposNaoChave,$sArquivo);
-			$sArquivo = preg_replace("/#VALORES_NAO_CHAVE#/",$this->sListaValoresNaoChave,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_ATRIBUTOS_CHAVE#/",$this->sListaAtributosChave,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_CAMPOS_REG#/",$this->sListaCamposReg,$sArquivo);
-			$sArquivo = preg_replace("/#COMENTARIO_ATRIBUTOS_CHAVE#/",$this->sComentarioAtributosChave,$sArquivo);
-			$sArquivo = preg_replace("/#ATRIBUICAO_NAO_CHAVE#/",$this->sAtribuicaoNaoChave,$sArquivo);
+			$sArquivo = preg_replace_callback("/#NOME_CLASSE#/",function($matches) {return $this->oConstrutor->sClasse;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#NOME_CLASSE_SIMPLES#/",function($matches) {return $this->oConstrutor->sClasseSimples;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_ATRIBUTOS#/",function($matches) {return $this->sListaAtributos;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",function($matches) {return $this->sAtributosConstrutor;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#NOME_TABELA#/",function($matches) {return strtolower($this->oConstrutor->sTabela);},$sArquivo);
+			$sArquivo = preg_replace_callback("/#COMPARACAO_CHAVE_ATRIBUTO#/",function($matches) {return $this->sComparacaoChaveAtributo;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#COMPARACAO_CHAVE_ATRIBUTO_ESP#/",function($matches) {return $this->sComparacaoChaveAtributoEsp;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_CAMPOS_CHAVE#/",function($matches) {return $this->sListaCamposChave;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_CAMPOS_NAO_CHAVE#/",function($matches) {return $this->sListaCamposNaoChave;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#VALORES_NAO_CHAVE#/",function($matches) {return $this->sListaValoresNaoChave;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_ATRIBUTOS_CHAVE#/",function($matches) {return $this->sListaAtributosChave;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_CAMPOS_REG#/",function($matches) {return $this->sListaCamposReg;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#COMENTARIO_ATRIBUTOS_CHAVE#/",function($matches) {return $this->sComentarioAtributosChave;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#ATRIBUICAO_NAO_CHAVE#/",function($matches) {return $this->sAtribuicaoNaoChave;},$sArquivo);
 			$sCaminhoArquivo = dirname(__FILE__) . "/../classes_geradas/".$this->sNomeArquivo;
 			if (file_exists($sCaminhoArquivo)){
 				unlink($sCaminhoArquivo);
@@ -113,20 +113,20 @@ class GeradoraBD{
 			$sArquivoParent = "";
 			$vModeloParent = file(dirname(__FILE__)."/../modelos/modelo_classe_bd_parent.txt");
 			$sArquivoParent = join("",$vModeloParent);
-			$sArquivoParent = preg_replace("/#NOME_CLASSE#/",$this->oConstrutor->sClasse,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#NOME_CLASSE_SIMPLES#/",$this->oConstrutor->sClasseSimples,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#LISTA_ATRIBUTOS#/",$this->sListaAtributos,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",$this->sAtributosConstrutor,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#NOME_TABELA#/",strtolower($this->oConstrutor->sTabela),$sArquivoParent);
-			$sArquivoParent = preg_replace("/#COMPARACAO_CHAVE_ATRIBUTO#/",$this->sComparacaoChaveAtributo,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#COMPARACAO_CHAVE_ATRIBUTO_ESP#/",$this->sComparacaoChaveAtributoEsp,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#LISTA_CAMPOS_CHAVE#/",$this->sListaCamposChave,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#LISTA_CAMPOS_NAO_CHAVE#/",$this->sListaCamposNaoChave,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#VALORES_NAO_CHAVE#/",$this->sListaValoresNaoChave,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#LISTA_ATRIBUTOS_CHAVE#/",$this->sListaAtributosChave,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#LISTA_CAMPOS_REG#/",$this->sListaCamposReg,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#COMENTARIO_ATRIBUTOS_CHAVE#/",$this->sComentarioAtributosChave,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#ATRIBUICAO_NAO_CHAVE#/",$this->sAtribuicaoNaoChave,$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#NOME_CLASSE#/",function($matches) {return $this->oConstrutor->sClasse;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#NOME_CLASSE_SIMPLES#/",function($matches) {return $this->oConstrutor->sClasseSimples;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#LISTA_ATRIBUTOS#/",function($matches) {return $this->sListaAtributos;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",function($matches) {return $this->sAtributosConstrutor;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#NOME_TABELA#/",function($matches) {return strtolower($this->oConstrutor->sTabela);},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#COMPARACAO_CHAVE_ATRIBUTO#/",function($matches) {return $this->sComparacaoChaveAtributo;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#COMPARACAO_CHAVE_ATRIBUTO_ESP#/",function($matches) {return $this->sComparacaoChaveAtributoEsp;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#LISTA_CAMPOS_CHAVE#/",function($matches) {return $this->sListaCamposChave;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#LISTA_CAMPOS_NAO_CHAVE#/",function($matches) {return $this->sListaCamposNaoChave;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#VALORES_NAO_CHAVE#/",function($matches) {return $this->sListaValoresNaoChave;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#LISTA_ATRIBUTOS_CHAVE#/",function($matches) {return $this->sListaAtributosChave;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#LISTA_CAMPOS_REG#/",function($matches) {return $this->sListaCamposReg;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#COMENTARIO_ATRIBUTOS_CHAVE#/",function($matches) {return $this->sComentarioAtributosChave;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#ATRIBUICAO_NAO_CHAVE#/",function($matches) {return $this->sAtribuicaoNaoChave;},$sArquivoParent);
 			$sCaminhoArquivoParent = dirname(__FILE__) . "/../classes_geradas/".$this->sNomeArquivoParent;
 			if (file_exists($sCaminhoArquivoParent)){
 				unlink($sCaminhoArquivoParent);

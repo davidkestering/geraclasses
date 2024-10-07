@@ -11,7 +11,7 @@ class GeradoraBasica{
 	var $sNomeArquivo;
 	var $sNomeArquivoParent;
 
-	function GeradoraBasica($oConstrutor){
+	function __construct($oConstrutor){
 		$this->oConstrutor = $oConstrutor;
 		//$this->sNomeArquivo = "class.".$this->oConstrutor->sClasse.".php";
 		//$this->sNomeArquivoParent = "class.".$this->oConstrutor->sClasse."Parent.php";
@@ -45,13 +45,13 @@ class GeradoraBasica{
 			$vModelo = file(dirname(__FILE__)."/../modelos/modelo_classe_basica.txt");
 			$sArquivo = join("",$vModelo);
 			
-			$sArquivo = preg_replace("/#NOME_CLASSE#/",$this->oConstrutor->sClasse,$sArquivo);
-			$sArquivo = preg_replace("/#NOME_CLASSE_SIMPLES#/",$this->oConstrutor->sClasseSimples,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_ATRIBUTOS#/",$this->sListaAtributos,$sArquivo);
-			$sArquivo = preg_replace("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",$this->sAtributosConstrutor,$sArquivo);
-			$sArquivo = preg_replace("/#INICIALIZACAO#/",$this->sInicializacao,$sArquivo);
-			$sArquivo = preg_replace("/#GET_SET#/",$this->sGetSet,$sArquivo);
-			$sArquivo = preg_replace("/#COMENTARIO_ATRIBUTOS#/",$this->sComentarioAtributos,$sArquivo);
+			$sArquivo = preg_replace_callback("/#NOME_CLASSE#/",function($matches) {return $this->oConstrutor->sClasse;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#NOME_CLASSE_SIMPLES#/",function($matches) {return $this->oConstrutor->sClasseSimples;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_ATRIBUTOS#/",function($matches) {return $this->sListaAtributos;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",function($matches) {return $this->sAtributosConstrutor;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#INICIALIZACAO#/",function($matches) {return $this->sInicializacao;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#GET_SET#/",function($matches) {return $this->sGetSet;},$sArquivo);
+			$sArquivo = preg_replace_callback("/#COMENTARIO_ATRIBUTOS#/",function($matches) {return $this->sComentarioAtributos;},$sArquivo);
 			
 			if (file_exists($sCaminhoArquivo)){
 				unlink($sCaminhoArquivo);
@@ -62,13 +62,13 @@ class GeradoraBasica{
 			
 			$vModeloParent = file(dirname(__FILE__)."/../modelos/modelo_classe_basica_parent.txt");
 			$sArquivoParent = join("",$vModeloParent);
-			$sArquivoParent = preg_replace("/#NOME_CLASSE#/",$this->oConstrutor->sClasse,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#NOME_CLASSE_SIMPLES#/",$this->oConstrutor->sClasseSimples,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#LISTA_ATRIBUTOS#/",$this->sListaAtributos,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",$this->sAtributosConstrutor,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#INICIALIZACAO#/",$this->sInicializacao,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#GET_SET#/",$this->sGetSet,$sArquivoParent);
-			$sArquivoParent = preg_replace("/#COMENTARIO_ATRIBUTOS#/",$this->sComentarioAtributos,$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#NOME_CLASSE#/",function($matches) {return $this->oConstrutor->sClasse;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#NOME_CLASSE_SIMPLES#/",function($matches) {return $this->oConstrutor->sClasseSimples;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#LISTA_ATRIBUTOS#/",function($matches) {return $this->sListaAtributos;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#LISTA_ATRIBUTOS_CONSTRUTOR#/",function($matches) {return $this->sAtributosConstrutor;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#INICIALIZACAO#/",function($matches) {return $this->sInicializacao;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#GET_SET#/",function($matches) {return $this->sGetSet;},$sArquivoParent);
+			$sArquivoParent = preg_replace_callback("/#COMENTARIO_ATRIBUTOS#/",function($matches) {return $this->sComentarioAtributos;},$sArquivoParent);
 
 			if (file_exists($sCaminhoArquivoParent)){
 				unlink($sCaminhoArquivoParent);

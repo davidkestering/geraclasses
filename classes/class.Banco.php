@@ -5,7 +5,7 @@ class Banco {
 	var $nNumeroDeTabelas;
 	var $vTabela;
 	
-	function Banco($sNomeBanco){
+	function __construct($sNomeBanco){
 		global $oConexao;
 		$this->sNomeBanco = $sNomeBanco;
 		$this->vTabela = array();

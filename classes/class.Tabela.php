@@ -5,7 +5,7 @@ class Tabela {
 	var $nNumeroDeCampos;
 	var $vCampos;
 	
-	function Tabela($sNomeTabela){
+	function __construct($sNomeTabela){
 		$this->sNomeTabela = $sNomeTabela;
 		$this->nNumeroDeCampos = 0;
 		$this->vCampos = array();

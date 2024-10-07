@@ -194,18 +194,18 @@ class UtilsDate {
 			$mes = $aData[1];
 			$ano = $aData[0];
 		}
-		return strftime("Bel�m, %A, %d de %B de %Y", mktime(0,0,0,$mes,$dia,$ano));
+		return strftime("Belém, %A, %d de %B de %Y", mktime(0,0,0,$mes,$dia,$ano));
 	}
 	
 	/*Essa é uma pog para resover o problema de letras com caracteres especiais que não ficam em caixa alta
 	 * By PAulo Moura
 	 * */
 	public static function ConverteAcentos($string){
-		$retorno = UtilsDate::StrReplaceChar(array(utf8_decode("ç")=>utf8_decode("Ç"),utf8_decode("á")=>utf8_decode("Á"),utf8_decode("é")=>utf8_decode("É"),
-		utf8_decode("í")=>utf8_decode("Í"),utf8_decode("ó")=>utf8_decode("Ó"), utf8_decode("ú")=>utf8_decode("Ú"),utf8_decode("ã")=>utf8_decode("Ã"),
-		utf8_decode("õ")=>utf8_decode("Õ"),utf8_decode("à")=>utf8_decode("À"),utf8_decode("è")=>utf8_decode("È"),utf8_decode("ì")=>utf8_decode("Ì"),
-		utf8_decode("ò")=>utf8_decode("ò"),utf8_decode("ù")=>utf8_decode("Ù"),utf8_decode("ê")=>utf8_decode("Ê"),utf8_decode("â")=>utf8_decode("Â"),
-		utf8_decode("ô")=>utf8_decode("Ô")),$string);
+		$retorno = UtilsDate::StrReplaceChar(array("ç"=>"Ç","á"=>"Á","é"=>"É",
+		"í"=>"Í","ó"=>"Ó", "ú"=>"Ú","ã"=>"Ã",
+		"õ"=>"Õ","à"=>"À","è"=>"È","ì"=>"Ì",
+		"ò"=>"ò","ù"=>"Ù","ê"=>"Ê","â"=>"Â",
+		"ô"=>"Ô"),$string);
 		
 		return $retorno;
 	}

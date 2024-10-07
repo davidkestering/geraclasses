@@ -55,7 +55,7 @@ var $oConexao;
 		$oConexao->execute($sSql);
 		$oReg = $oConexao->fetchObject();
 		if ($oReg) {
-			$oGrupoUsuario = new GrupoUsuario($oReg->id,utf8_encode($oConexao->unescapeString($oReg->nm_grupo_usuario)),$oReg->dt_grupo_usuario,$oReg->publicado,$oReg->ativo);
+			$oGrupoUsuario = new GrupoUsuario($oReg->id,$oConexao->unescapeString($oReg->nm_grupo_usuario),$oReg->dt_grupo_usuario,$oReg->publicado,$oReg->ativo);
 			return $oGrupoUsuario;
 		}
 		return false;
@@ -93,7 +93,7 @@ var $oConexao;
 	function insere($oGrupoUsuario) {
 		$oConexao = $this->getConexao();
 		$sSql = "insert into seg_grupo_usuario (nm_grupo_usuario,dt_grupo_usuario,publicado,ativo) 
-				 values ('".utf8_decode($oConexao->escapeString($oGrupoUsuario->getNmGrupoUsuario()))."','".$oGrupoUsuario->getDtGrupoUsuario()."','".$oGrupoUsuario->getPublicado()."','".$oGrupoUsuario->getAtivo()."')";		
+				 values ('".$oConexao->escapeString($oGrupoUsuario->getNmGrupoUsuario())."','".$oGrupoUsuario->getDtGrupoUsuario()."','".$oGrupoUsuario->getPublicado()."','".$oGrupoUsuario->getAtivo()."')";
 		$oConexao->execute($sSql);		
 		$nId = $oConexao->getLastId();
 		if ($nId)
@@ -111,7 +111,7 @@ var $oConexao;
 	function altera($oGrupoUsuario) {
 		$oConexao = $this->getConexao();
 		$sSql = "update seg_grupo_usuario 
-				 set    nm_grupo_usuario = '".utf8_decode($oConexao->escapeString($oGrupoUsuario->getNmGrupoUsuario()))."',
+				 set    nm_grupo_usuario = '".$oConexao->escapeString($oGrupoUsuario->getNmGrupoUsuario())."',
 						dt_grupo_usuario = '".$oGrupoUsuario->getDtGrupoUsuario()."',
 						publicado = '".$oGrupoUsuario->getPublicado()."',
 						ativo = '".$oGrupoUsuario->getAtivo()."'
@@ -159,7 +159,7 @@ var $oConexao;
 		$oConexao->execute($sSql);
 		$voObjeto = array();
 		while ($oReg = $oConexao->fetchObject()) {
-			$oGrupoUsuario = new GrupoUsuario($oReg->id,utf8_encode($oConexao->unescapeString($oReg->nm_grupo_usuario)),$oReg->dt_grupo_usuario,$oReg->publicado,$oReg->ativo);
+			$oGrupoUsuario = new GrupoUsuario($oReg->id,$oConexao->unescapeString($oReg->nm_grupo_usuario),$oReg->dt_grupo_usuario,$oReg->publicado,$oReg->ativo);
 			$voObjeto[] = $oGrupoUsuario;
 			unset($oGrupoUsuario);
 		}

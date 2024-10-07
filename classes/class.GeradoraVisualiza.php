@@ -14,7 +14,7 @@ class GeradoraVisualiza{
 
 
 
-	function GeradoraVisualiza($sBanco,$oConstrutor){
+	function __construct($sBanco,$oConstrutor){
 		$this->oConstrutor = $oConstrutor;
 		$this->sBanco = $sBanco;
 		$this->sNomeArquivo = "visualiza_".$this->oConstrutor->sArquivo.".php";

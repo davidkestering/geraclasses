@@ -9,7 +9,7 @@ class Conexao {
 	var $sBanco;
 	var $sTipo;
 
-	function Conexao($sHost,$sUsuario,$sSenha,$sTipo,$sBanco){
+	function __construct($sHost,$sUsuario,$sSenha,$sTipo,$sBanco){
 		$this->sHost = $sHost;
 		$this->sUsuario = $sUsuario;
 		$this->sSenha = $sSenha;
@@ -32,6 +32,9 @@ class Conexao {
 	function escolheBanco(){
 		switch ($this->sTipo){
 			case "MySQL":
+				if(!$this->pConexao) return false;
+				if(!$this->sBanco) return false;
+
 				mysqli_select_db($this->pConexao,$this->sBanco);
 			break;
 		}
@@ -40,6 +43,9 @@ class Conexao {
 	function consulta($sSQL){
 		switch ($this->sTipo){
 			case "MySQL":
+				if(!$this->pConexao) return false;
+				if(!$this->sBanco) return false;
+				
 				$this->pConsulta = mysqli_query($this->pConexao,$sSQL) or die("Não foi possível executar a consulta:".$sSQL);
 			break;
 		}

@@ -55,7 +55,7 @@ var $oConexao;
 		$oConexao->execute($sSql);
 		$oReg = $oConexao->fetchObject();
 		if ($oReg) {
-			$oUsuario = new Usuario($oReg->id,$oReg->id_grupo_usuario,utf8_encode($oConexao->unescapeString($oReg->nm_usuario)),utf8_encode($oConexao->unescapeString($oReg->login)),utf8_encode($oConexao->unescapeString($oReg->senha)),utf8_encode($oConexao->unescapeString($oReg->email)),$oReg->logado,$oReg->dt_usuario,$oReg->publicado,$oReg->ativo);
+			$oUsuario = new Usuario($oReg->id,$oReg->id_grupo_usuario,$oConexao->unescapeString($oReg->nm_usuario),$oConexao->unescapeString($oReg->login),$oConexao->unescapeString($oReg->senha),$oConexao->unescapeString($oReg->email),$oReg->logado,$oReg->dt_usuario,$oReg->publicado,$oReg->ativo);
 			return $oUsuario;
 		}
 		return false;
@@ -93,7 +93,7 @@ var $oConexao;
 	function insere($oUsuario) {
 		$oConexao = $this->getConexao();
 		$sSql = "insert into seg_usuario (id_grupo_usuario,nm_usuario,login,senha,email,logado,dt_usuario,publicado,ativo) 
-				 values ('".$oUsuario->getIdGrupoUsuario()."','".utf8_decode($oConexao->escapeString($oUsuario->getNmUsuario()))."','".utf8_decode($oConexao->escapeString($oUsuario->getLogin()))."','".utf8_decode($oConexao->escapeString($oUsuario->getSenha()))."','".utf8_decode($oConexao->escapeString($oUsuario->getEmail()))."','".$oUsuario->getLogado()."','".$oUsuario->getDtUsuario()."','".$oUsuario->getPublicado()."','".$oUsuario->getAtivo()."')";		
+				 values ('".$oUsuario->getIdGrupoUsuario()."','".$oConexao->escapeString($oUsuario->getNmUsuario())."','".$oConexao->escapeString($oUsuario->getLogin())."','".$oConexao->escapeString($oUsuario->getSenha())."','".$oConexao->escapeString($oUsuario->getEmail())."','".$oUsuario->getLogado()."','".$oUsuario->getDtUsuario()."','".$oUsuario->getPublicado()."','".$oUsuario->getAtivo()."')";
 		$oConexao->execute($sSql);		
 		$nId = $oConexao->getLastId();
 		if ($nId)
@@ -112,10 +112,10 @@ var $oConexao;
 		$oConexao = $this->getConexao();
 		$sSql = "update seg_usuario 
 				 set    id_grupo_usuario = '".$oUsuario->getIdGrupoUsuario()."',
-						nm_usuario = '".utf8_decode($oConexao->escapeString($oUsuario->getNmUsuario()))."',
-						login = '".utf8_decode($oConexao->escapeString($oUsuario->getLogin()))."',
-						senha = '".utf8_decode($oConexao->escapeString($oUsuario->getSenha()))."',
-						email = '".utf8_decode($oConexao->escapeString($oUsuario->getEmail()))."',
+						nm_usuario = '".$oConexao->escapeString($oUsuario->getNmUsuario())."',
+						login = '".$oConexao->escapeString($oUsuario->getLogin())."',
+						senha = '".$oConexao->escapeString($oUsuario->getSenha())."',
+						email = '".$oConexao->escapeString($oUsuario->getEmail())."',
 						logado = '".$oUsuario->getLogado()."',
 						dt_usuario = '".$oUsuario->getDtUsuario()."',
 						publicado = '".$oUsuario->getPublicado()."',
@@ -164,7 +164,7 @@ var $oConexao;
 		$oConexao->execute($sSql);
 		$voObjeto = array();
 		while ($oReg = $oConexao->fetchObject()) {
-			$oUsuario = new Usuario($oReg->id,$oReg->id_grupo_usuario,utf8_encode($oConexao->unescapeString($oReg->nm_usuario)),utf8_encode($oConexao->unescapeString($oReg->login)),utf8_encode($oConexao->unescapeString($oReg->senha)),utf8_encode($oConexao->unescapeString($oReg->email)),$oReg->logado,$oReg->dt_usuario,$oReg->publicado,$oReg->ativo);
+			$oUsuario = new Usuario($oReg->id,$oReg->id_grupo_usuario,$oConexao->unescapeString($oReg->nm_usuario),$oConexao->unescapeString($oReg->login),$oConexao->unescapeString($oReg->senha),$oConexao->unescapeString($oReg->email),$oReg->logado,$oReg->dt_usuario,$oReg->publicado,$oReg->ativo);
 			$voObjeto[] = $oUsuario;
 			unset($oUsuario);
 		}

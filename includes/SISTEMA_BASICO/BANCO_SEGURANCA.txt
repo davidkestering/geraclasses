@@ -3,14 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Jan 03, 2012 as 04:39 PM
--- Versão do Servidor: 5.5.8
--- Versão do PHP: 5.3.5
+-- Tempo de Geraï¿½ï¿½o: Jan 03, 2012 as 04:39 PM
+-- Versï¿½o do Servidor: 5.5.8
+-- Versï¿½o do PHP: 5.3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- Banco de Dados: `helloidioms`
+-- Banco de Dados: ``
 --
 
 -- --------------------------------------------------------
@@ -228,4 +228,4 @@ CREATE TABLE `seg_usuario` (
 --
 
 INSERT INTO `seg_usuario` (`id`, `id_grupo_usuario`, `nm_usuario`, `login`, `senha`, `email`, `logado`, `dt_usuario`, `publicado`, `ativo`) VALUES
-(1, 1, 'Dávìd Këstêrîng', 'david', 'tudobem', 'davidkestering@gmail.com', 0, '2011-12-22 10:20:34', 1, 1);
+(1, 1, 'Dï¿½vï¿½d Kï¿½stï¿½rï¿½ng', 'david', 'tudobem', 'davidkestering@gmail.com', 0, '2011-12-22 10:20:34', 1, 1);

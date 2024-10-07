@@ -29,7 +29,7 @@ class Login {
 	function logarUsuarioPainel($sLogin,$sSenha,$sBanco){
 		//ATENCAO O LOGIN PRECISA SER PASSADO NO UTF8_DECODE PARA O BANCO POIS É UM TEXTO LITERAL, A SENHA NÃO PRECISA POIS SERÁ COMPARADA DE IGUAL PARA IGUAL
 		$oFachadaSeguranca = new FachadaSegurancaBD();
-		$vWhereUsuario = array("login = '".utf8_decode($sLogin)."'","publicado = 1","ativo = 1");
+		$vWhereUsuario = array("login = '".$sLogin."'","publicado = 1","ativo = 1");
 		$voUsuario = $oFachadaSeguranca->recuperaTodosUsuario($sBanco,$vWhereUsuario);
 		if(count($voUsuario) == 1){
 			$oUsuario = $voUsuario[0];
@@ -81,7 +81,7 @@ class Login {
 	
 	function alteraSenhaUsuario($sLogin,$sSenhaAtual,$sSenhaNova,$sBanco){
 		$oFachadaSeguranca = new FachadaSegurancaBD();
-		$vWhereUsuario = array("login = '".utf8_decode($sLogin)."'","publicado = 1","ativo = 1");
+		$vWhereUsuario = array("login = '".$sLogin."'","publicado = 1","ativo = 1");
 		$voUsuario = $oFachadaSeguranca->recuperaTodosUsuario($sBanco,$vWhereUsuario);
 		if(count($voUsuario) == 1){
 			$oUsuario = $voUsuario[0];

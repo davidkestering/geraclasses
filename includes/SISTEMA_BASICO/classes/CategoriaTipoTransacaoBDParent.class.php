@@ -55,7 +55,7 @@ var $oConexao;
 		$oConexao->execute($sSql);
 		$oReg = $oConexao->fetchObject();
 		if ($oReg) {
-			$oCategoriaTipoTransacao = new CategoriaTipoTransacao($oReg->id,utf8_encode($oConexao->unescapeString($oReg->descricao)),$oReg->dt_categoria_tipo_transacao,$oReg->publicado,$oReg->ativo);
+			$oCategoriaTipoTransacao = new CategoriaTipoTransacao($oReg->id,$oConexao->unescapeString($oReg->descricao),$oReg->dt_categoria_tipo_transacao,$oReg->publicado,$oReg->ativo);
 			return $oCategoriaTipoTransacao;
 		}
 		return false;
@@ -93,7 +93,7 @@ var $oConexao;
 	function insere($oCategoriaTipoTransacao) {
 		$oConexao = $this->getConexao();
 		$sSql = "insert into seg_categoria_tipo_transacao (descricao,dt_categoria_tipo_transacao,publicado,ativo) 
-				 values ('".utf8_decode($oConexao->escapeString($oCategoriaTipoTransacao->getDescricao()))."','".$oCategoriaTipoTransacao->getDtCategoriaTipoTransacao()."','".$oCategoriaTipoTransacao->getPublicado()."','".$oCategoriaTipoTransacao->getAtivo()."')";		
+				 values ('".$oConexao->escapeString($oCategoriaTipoTransacao->getDescricao())."','".$oCategoriaTipoTransacao->getDtCategoriaTipoTransacao()."','".$oCategoriaTipoTransacao->getPublicado()."','".$oCategoriaTipoTransacao->getAtivo()."')";
 		$oConexao->execute($sSql);		
 		$nId = $oConexao->getLastId();
 		if ($nId)
@@ -111,7 +111,7 @@ var $oConexao;
 	function altera($oCategoriaTipoTransacao) {
 		$oConexao = $this->getConexao();
 		$sSql = "update seg_categoria_tipo_transacao 
-				 set    descricao = '".utf8_decode($oConexao->escapeString($oCategoriaTipoTransacao->getDescricao()))."',
+				 set    descricao = '".$oConexao->escapeString($oCategoriaTipoTransacao->getDescricao())."',
 						dt_categoria_tipo_transacao = '".$oCategoriaTipoTransacao->getDtCategoriaTipoTransacao()."',
 						publicado = '".$oCategoriaTipoTransacao->getPublicado()."',
 						ativo = '".$oCategoriaTipoTransacao->getAtivo()."'
@@ -158,7 +158,7 @@ var $oConexao;
 		$oConexao->execute($sSql);
 		$voObjeto = array();
 		while ($oReg = $oConexao->fetchObject()) {
-			$oCategoriaTipoTransacao = new CategoriaTipoTransacao($oReg->id,utf8_encode($oConexao->unescapeString($oReg->descricao)),$oReg->dt_categoria_tipo_transacao,$oReg->publicado,$oReg->ativo);
+			$oCategoriaTipoTransacao = new CategoriaTipoTransacao($oReg->id,$oConexao->unescapeString($oReg->descricao),$oReg->dt_categoria_tipo_transacao,$oReg->publicado,$oReg->ativo);
 			$voObjeto[] = $oCategoriaTipoTransacao;
 			unset($oCategoriaTipoTransacao);
 		}

@@ -75,20 +75,18 @@ switch ($_POST['sOP']){
 ?>
 
 				
-<p><a href="classes_geradas/<?php echo $oGeradoraBasica->oConstrutor->sClasse?>.class.txt">Baixar</a> 
+<p><a href="classes_geradas/<?php echo $oGeradoraBasica->oConstrutor->sClasse?>.class.php">Baixar</a> 
 </p>
 <p><strong>* Classe Básica - Apenas com Get e Set</strong></p>
-<iframe width="600" height="400" src="classes_geradas/<?php echo $oGeradoraBasica->oConstrutor->sClasse?>.class.txt"></iframe>
 <?php
 				$oGeradoraBD = new GeradoraBD($oConstrutor);
 				$oGeradoraBD->gera();
 
 				?>
 				
-<p><a href="classes_geradas/<?php echo $oGeradoraBD->oConstrutor->sClasse?>BD.class.txt">Baixar</a> 
+<p><a href="classes_geradas/<?php echo $oGeradoraBD->oConstrutor->sClasse?>BD.class.php">Baixar</a> 
 </p>
 <p><strong>* Classe BD - Com os métodos que interagem com o Banco de Dados</strong></p>
-<iframe width="600" height="400" src="classes_geradas/<?php echo $oGeradoraBD->oConstrutor->sClasse?>BD.class.txt"></iframe>
 				<?php
 				$oGeradoraInteriorFachada = new GeradoraInteriorFachada($oConstrutor);
 				$oGeradoraInteriorFachada->gera();

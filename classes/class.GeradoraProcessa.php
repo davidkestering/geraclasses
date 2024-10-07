@@ -12,7 +12,7 @@ class GeradoraProcessa{
 
 
 
-	function GeradoraProcessa($sBanco,$oConstrutor){
+	function __construct($sBanco,$oConstrutor){
 		$this->oConstrutor = $oConstrutor;
 		$this->sBanco = $sBanco;
 		$this->sNomeArquivo = "processa_".$this->oConstrutor->sArquivo.".php";

@@ -55,7 +55,7 @@ var $oConexao;
 		$oConexao->execute($sSql);
 		$oReg = $oConexao->fetchObject();
 		if ($oReg) {
-			$oTransacao = new Transacao($oReg->id,$oReg->id_tipo_transacao,$oReg->id_usuario,utf8_encode($oConexao->unescapeString($oReg->objeto)),utf8_encode($oConexao->unescapeString($oReg->ip)),$oReg->dt_transacao,$oReg->publicado,$oReg->ativo);
+			$oTransacao = new Transacao($oReg->id,$oReg->id_tipo_transacao,$oReg->id_usuario,$oConexao->unescapeString($oReg->objeto),$oConexao->unescapeString($oReg->ip),$oReg->dt_transacao,$oReg->publicado,$oReg->ativo);
 			return $oTransacao;
 		}
 		return false;
@@ -93,7 +93,7 @@ var $oConexao;
 	function insere($oTransacao) {
 		$oConexao = $this->getConexao();
 		$sSql = "insert into seg_transacao (id_tipo_transacao,id_usuario,objeto,ip,dt_transacao,publicado,ativo) 
-				 values ('".$oTransacao->getIdTipoTransacao()."','".$oTransacao->getIdUsuario()."','".utf8_decode($oConexao->escapeString($oTransacao->getObjeto()))."','".utf8_decode($oConexao->escapeString($oTransacao->getIp()))."','".$oTransacao->getDtTransacao()."','".$oTransacao->getPublicado()."','".$oTransacao->getAtivo()."')";		
+				 values ('".$oTransacao->getIdTipoTransacao()."','".$oTransacao->getIdUsuario()."','".$oConexao->escapeString($oTransacao->getObjeto())."','".$oConexao->escapeString($oTransacao->getIp())."','".$oTransacao->getDtTransacao()."','".$oTransacao->getPublicado()."','".$oTransacao->getAtivo()."')";
 		$oConexao->execute($sSql);		
 		$nId = $oConexao->getLastId();
 		if ($nId)
@@ -113,8 +113,8 @@ var $oConexao;
 		$sSql = "update seg_transacao 
 				 set    id_tipo_transacao = '".$oTransacao->getIdTipoTransacao()."',
 						id_usuario = '".$oTransacao->getIdUsuario()."',
-						objeto = '".utf8_decode($oConexao->escapeString($oTransacao->getObjeto()))."',
-						ip = '".utf8_decode($oConexao->escapeString($oTransacao->getIp()))."',
+						objeto = '".$oConexao->escapeString($oTransacao->getObjeto())."',
+						ip = '".$oConexao->escapeString($oTransacao->getIp())."',
 						dt_transacao = '".$oTransacao->getDtTransacao()."',
 						publicado = '".$oTransacao->getPublicado()."',
 						ativo = '".$oTransacao->getAtivo()."'
@@ -162,7 +162,7 @@ var $oConexao;
 		$oConexao->execute($sSql);
 		$voObjeto = array();
 		while ($oReg = $oConexao->fetchObject()) {
-			$oTransacao = new Transacao($oReg->id,$oReg->id_tipo_transacao,$oReg->id_usuario,utf8_encode($oConexao->unescapeString($oReg->objeto)),utf8_encode($oConexao->unescapeString($oReg->ip)),$oReg->dt_transacao,$oReg->publicado,$oReg->ativo);
+			$oTransacao = new Transacao($oReg->id,$oReg->id_tipo_transacao,$oReg->id_usuario,$oConexao->unescapeString($oReg->objeto),$oConexao->unescapeString($oReg->ip),$oReg->dt_transacao,$oReg->publicado,$oReg->ativo);
 			$voObjeto[] = $oTransacao;
 			unset($oTransacao);
 		}

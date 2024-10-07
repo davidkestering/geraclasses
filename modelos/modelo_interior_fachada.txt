@@ -66,14 +66,18 @@
 	* @access public
 	* @return boolean $bResultado Indicando sucesso ou não da operação;
 	*/
-	function insere#NOME_CLASSE#($o#NOME_CLASSE#,$oTransacao,$sBanco) {
+	function insere#NOME_CLASSE#($o#NOME_CLASSE#,$voTransacao,$sBanco) {
 		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
  		$nId = $o#NOME_CLASSE#BD->insere($o#NOME_CLASSE#);
 		// INSERE TRANSAÇÃO 
-		if($nId && is_object($oTransacao)) {
+		if($nId && is_array($voTransacao) && count($voTransacao) > 0) {
 			$oFachadaSeguranca = new FachadaSegurancaBD();
-			if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
-				return false;
+			foreach ($voTransacao as $oTransacao){
+			    if(isset($oTransacao) && is_object($oTransacao)){
+                    if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
+                        return false;
+                }
+            }
 		}
 		
 		return $nId;
@@ -86,14 +90,18 @@
 	* @access public
 	* @return boolean $bResultado Indicando presença ou ausência de #NOME_CLASSE#
 	*/
-	function altera#NOME_CLASSE#($o#NOME_CLASSE#,$oTransacao,$sBanco) {
+	function altera#NOME_CLASSE#($o#NOME_CLASSE#,$voTransacao,$sBanco) {
 		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
  		$bResultado = $o#NOME_CLASSE#BD->altera($o#NOME_CLASSE#);
 		// INSERE TRANSAÇÃO 
-		if($bResultado && is_object($oTransacao)) {
+		if($bResultado && is_array($voTransacao) && count($voTransacao) > 0) {
 			$oFachadaSeguranca = new FachadaSegurancaBD();
-			if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
-				return false;
+			foreach ($voTransacao as $oTransacao){
+			    if(isset($oTransacao) && is_object($oTransacao)){
+                    if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
+                        return false;
+                }
+            }
 		}
 		
 		return $bResultado;
@@ -105,14 +113,18 @@
 	* @access public
 	* @return boolean $bResultado Indicando sucesso ou não da operação
 	*/
-	function exclui#NOME_CLASSE#(#LISTA_ATRIBUTOS_CHAVE#,$oTransacao,$sBanco) {
+	function exclui#NOME_CLASSE#(#LISTA_ATRIBUTOS_CHAVE#,$voTransacao,$sBanco) {
 		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
  		$bResultado = $o#NOME_CLASSE#BD->exclui(#LISTA_ATRIBUTOS_CHAVE#);
 		// INSERE TRANSAÇÃO 
-		if($bResultado && is_object($oTransacao)) {
+		if($bResultado && is_array($voTransacao) && count($voTransacao) > 0) {
 			$oFachadaSeguranca = new FachadaSegurancaBD();
-			if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
-				return false;
+			foreach ($voTransacao as $oTransacao){
+			    if(isset($oTransacao) && is_object($oTransacao)){
+                    if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
+                        return false;
+                }
+            }
 		}
 		
 		return $bResultado;
@@ -124,14 +136,18 @@
 	* @access public
 	* @return boolean $bResultado Indicando sucesso ou não da operação
 	*/
-	function desativa#NOME_CLASSE#(#LISTA_ATRIBUTOS_CHAVE#,$oTransacao,$sBanco) {
+	function desativa#NOME_CLASSE#(#LISTA_ATRIBUTOS_CHAVE#,$voTransacao,$sBanco) {
 		$o#NOME_CLASSE#BD = $this->inicializa#NOME_CLASSE#BD($sBanco);
  		$bResultado = $o#NOME_CLASSE#BD->desativa(#LISTA_ATRIBUTOS_CHAVE#);
 		// INSERE TRANSAÇÃO 
-		if($bResultado && is_object($oTransacao)) {
+		if($bResultado && is_array($voTransacao) && count($voTransacao) > 0) {
 			$oFachadaSeguranca = new FachadaSegurancaBD();
-			if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
-				return false;
+			foreach ($voTransacao as $oTransacao){
+			    if(isset($oTransacao) && is_object($oTransacao)){
+                    if(!$oFachadaSeguranca->insereTransacao($oTransacao,$sBanco))
+                        return false;
+                }
+            }
 		}
 		
 		return $bResultado;

@@ -14,7 +14,7 @@ class GeradoraForm{
 
 
 
-	function GeradoraForm($sBanco,$oConstrutor){
+	function __construct($sBanco,$oConstrutor){
 		$this->oConstrutor = $oConstrutor;
 		$this->sBanco = $sBanco;
 		$this->sNomeArquivo = "insere_altera_".$this->oConstrutor->sArquivo.".php";
